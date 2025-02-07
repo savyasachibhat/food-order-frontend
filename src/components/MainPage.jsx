@@ -8,13 +8,14 @@ const MainPage = () => {
   const [fetchError, setFetchError] = useState("");
 
   const cartctx = useContext(CartContext);
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const fetchMeals = async () => {
       setLoading(true);
       setFetchError("");
       try {
-        const response = await fetch(`http://localhost:5000/meals`);
+        const response = await fetch(`${backendUrl}/meals`);
         const data = await response.json();
         setMeals(data);
       } catch (error) {

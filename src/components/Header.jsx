@@ -5,7 +5,7 @@ import CartContext from "../store/CartContext";
 import UserProgressContext from "../store/UserProgressContext";
 import CartModal from "./CartModal";
 import CheckoutModal from "./CheckoutModal";
-import UserLoginModal from "./UserLoginModal";
+
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
@@ -17,6 +17,7 @@ const Header = () => {
   const cartctx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   // const totalCartItems = cartctx.items.reduce((total, item) => {
   //   return total + item.quantity;
@@ -44,9 +45,7 @@ const Header = () => {
     userProgressCtx.hideCheckout();
   }
 
-  function handleCloseLogin (){
-    userProgressCtx.hideUserLogin();
-  }
+ 
 
     
 
@@ -65,7 +64,7 @@ const Header = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/admin`, {
+      const response = await fetch(`${backendUrl}/admin`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -137,7 +136,7 @@ const Header = () => {
 
       <CartModal open={userProgressCtx.progress === 'cart'} onClose={  handleCloseCart  } />
       <CheckoutModal open={userProgressCtx.progress === 'checkout'} onClose={handleCloseCheckout} />
-      <UserLoginModal open ={userProgressCtx.progress=== 'login'} onClose={handleCloseLogin}/>
+      
       
     </>
   );

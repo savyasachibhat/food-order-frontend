@@ -9,6 +9,8 @@ const Admin = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -20,7 +22,7 @@ const Admin = () => {
     const fetchMeals = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://localhost:5000/meals`);
+        const response = await fetch(`${backendUrl}/meals`);
         const data = await response.json();
         setMeals(data);
       } catch (error) {
@@ -43,7 +45,7 @@ const Admin = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:5000/add-meal`, {
+      const response = await fetch(`${backendUrl}/add-meal`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -81,7 +83,7 @@ const Admin = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/meals/${editMeal._id}`,
+        `${backendUrl}/meals/${editMeal._id}`,
         {
           method: "PUT",
           headers: {
@@ -96,7 +98,7 @@ const Admin = () => {
         e.target.reset();
         handleClose(); // Close the modal
         const updatedMeals = await (
-          await fetch(`http://localhost:5000/meals`)
+          await fetch(`${backendUrl}/meals`)
         ).json();
         setMeals(updatedMeals);
       } else {
@@ -114,7 +116,7 @@ const Admin = () => {
     if (!confirmed) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/meals/${id}`, {
+      const response = await fetch(`${backendUrl}/meals/${id}`, {
         method: "DELETE",
       });
 

@@ -11,6 +11,8 @@ const CheckoutModal = ({ open, onClose }) => {
   const navigate = useNavigate();
   const userProgressCtx = useContext(UserProgressContext);
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
   // Open and close modal based on 'open' prop
   useEffect(() => {
     const modal = dialog.current;
@@ -41,7 +43,7 @@ const CheckoutModal = ({ open, onClose }) => {
     try {
       setIsLoading(true);
       setError(null);
-      const response = await fetch(`http://localhost:5000/orders`, {
+      const response = await fetch(`${backendUrl}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
