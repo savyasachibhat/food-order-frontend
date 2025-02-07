@@ -32,7 +32,7 @@ const Admin = () => {
     };
 
     fetchMeals();
-  }, []);
+  }, [backendUrl]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

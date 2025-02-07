@@ -26,7 +26,7 @@ const MainPage = () => {
     };
 
     fetchMeals();
-  }, []);
+  }, [backendUrl]);
 
   // const correctEmail = 'admin@gmail.com';
   // const correctPassword = 'admin1234';
