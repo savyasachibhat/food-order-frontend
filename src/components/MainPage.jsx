@@ -15,7 +15,7 @@ const MainPage = () => {
       setLoading(true);
       setFetchError("");
       try {
-        const response = await fetch(`${backendUrl}/meals`);
+        const response = await fetch(`${backendUrl}meals`);
         const data = await response.json();
         setMeals(data);
       } catch (error) {
