@@ -458,6 +458,8 @@ position: relative;
 display: flex;
 flex-direction: column;
 gap: 20px;
+max-height: 80vh; 
+  overflow-y: auto;
 }
 
 /* Modal Header */
@@ -541,6 +543,10 @@ color: red;
 margin-top: 1rem;
 font-weight: bold;
 }
+
+
+
+
 
 /* userloginmodal css */
 /* Backdrop */
