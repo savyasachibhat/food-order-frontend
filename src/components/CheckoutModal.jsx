@@ -109,7 +109,7 @@ const CheckoutModal = ({ open, onClose }) => {
                 <input type="text" id="city" name="city" required />
               </div>
             </div>
-            {Error && <div className="error-message">{Error}</div>}
+            {Error && <span className="error-message">{Error}</span>}
 
             <div className="modal-actions">
               {!isLoading && <button onClick={onClose}>Cancel</button>}
