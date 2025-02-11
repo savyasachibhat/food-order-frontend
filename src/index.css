@@ -19,9 +19,9 @@ align-items: center;
 padding: 0 1rem;
 position: sticky;
 top: 0;
-z-index: 1000; /* Ensures the header stays on top of other elements */
-background-color: rgb(5, 0, 0); /* Adds a background color to the header */
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for better visibility */
+z-index: 1000; /*  the header stays on top of other elements */
+background-color: rgb(5, 0, 0); 
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 padding: 10px;
 }
 
@@ -59,6 +59,66 @@ color: #fff;
 .btn2 {
 background-color: #ccc;
 color: #333;
+}
+
+@media (max-width: 768px) {
+  
+  #main-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+ 
+  #title img {
+    width: 3rem;
+    height: 3rem;
+    margin-right: 0.5rem;
+  }
+
+  
+  .btndiv {
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 1rem;
+  }
+
+  
+  .btn1, .btn2 {
+    padding: 0.5rem 1rem;
+    font-size: 14px;
+  }
+}
+
+/* For mobile screens */
+@media (max-width: 480px) {
+  
+  #main-header {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 1rem;
+  }
+
+ 
+  #title img {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 0.5rem;
+  }
+
+
+  .btndiv {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+ 
+  .btn1, .btn2 {
+    padding: 0.5rem;
+    font-size: 12px;
+  }
 }
 
 /* Modal styles */
@@ -216,6 +276,42 @@ margin: 5px 0;
 color: black;
 }
 
+@media (max-width: 768px) {
+  /* Grid adjustment for tablets */
+  .meals-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+  }
+
+ 
+  .meal-item h2 {
+    font-size: 1.3em; 
+  }
+
+  
+  .meal-item button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  
+  .meals-grid {
+    grid-template-columns: 1fr; 
+  }
+
+ 
+  .meal-item h2 {
+    font-size: 1.1em; 
+  }
+
+  
+  .meal-item button {
+    font-size: 13px;
+    padding: 12px;
+  }
+}
 
 /* CART CSS  */
 /* General Reset */
@@ -230,7 +326,7 @@ color: #d9e2f1;
 min-height: 100vh;
 }
 
-/* Header */
+
 #main-header {
 display: flex;
 justify-content: space-between;
@@ -381,7 +477,7 @@ text-decoration: none;
 cursor: pointer;
 }
 
-/* Cart Item Actions */
+
 .cart-item-actions {
 display: flex;
 align-items: center;
@@ -443,7 +539,7 @@ z-index: 1000;
 display: flex;
 }
 
-/* Checkout Modal Container */
+
 .checkout-modal {
 background: white;
 padding: 20px;
@@ -462,7 +558,7 @@ max-height: 80vh;
   overflow-y: auto;
 }
 
-/* Modal Header */
+
 .checkout-modal h2 {
 margin-top: 0;
 font-size: 24px;
@@ -470,7 +566,7 @@ text-align: center;
 color: #333;
 }
 
-/* Form Control */
+
 .checkout-modal form {
 display: flex;
 flex-direction: column;
@@ -499,7 +595,7 @@ gap: 1rem;
 flex: 1;
 }
 
-/* Modal Actions */
+
 .modal-actions {
 display: flex;
 justify-content: space-between;
@@ -520,7 +616,7 @@ cursor: pointer;
 background-color: #0056b3;
 }
 
-/* Close Button */
+
 .checkout-modal .close {
 position: absolute;
 top: 10px;
@@ -548,101 +644,6 @@ font-weight: bold;
 
 
 
-/* userloginmodal css */
-/* Backdrop */
-.login-modal-backdrop {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-display: flex;
-justify-content: center;
-align-items: center;
-visibility: hidden; /* Initially hidden */
-opacity: 0;
-transition: visibility 0s, opacity 0.3s ease-in-out; /* Smooth transition */
-}
-
-.login-modal-backdrop.open {
-visibility: visible;
-opacity: 1;
-}
-
-/* Dialog */
-.user-login-modal {
-background: white;
-border-radius: 10px;
-padding: 2rem;
-max-width: 500px;
-width: 100%;
-border: none;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Form */
-#login-form {
-display: flex;
-flex-direction: column;
-}
-
-#login-form h2 {
-margin-bottom: 1rem;
-color: #333;
-}
-
-/* Label */
-#login-form label {
-margin-bottom: 0.5rem;
-color: #555;
-}
-
-/* Input */
-#login-form input {
-padding: 0.5rem;
-margin-bottom: 1rem;
-border: 1px solid #ccc;
-border-radius: 5px;
-font-size: 1rem;
-}
-
-/* Button */
-.modal-actions {
-display: flex;
-justify-content: space-between;
-}
-
-.modal-actions button {
-padding: 0.75rem 1.5rem;
-border: none;
-border-radius: 5px;
-font-size: 1rem;
-cursor: pointer;
-background: #007bff; /* Primary color */
-color: white;
-transition: background 0.3s ease-in-out;
-}
-
-.modal-actions button[type="button"] {
-background: #6c757d; /* Secondary color for cancel button */
-}
-
-.modal-actions button:hover {
-background: #0056b3; /* Darker shade on hover */
-}
-
-.modal-actions button[type="button"]:hover {
-background: #5a6268; /* Darker shade for cancel button on hover */
-}
-
-/* Error Message */
-.error-message {
-color: red;
-margin-top: 1rem;
-font-weight: bold;
-text-align: center;
-}
 
 
 
