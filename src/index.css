@@ -193,7 +193,7 @@ font-size: 1rem;
 padding: 0.75rem;
 border: none;
 border-radius: 4px;
-background-color: #007bff;
+background-color: #977b0a;
 color: #fff;
 font-size: 1rem;
 cursor: pointer;
@@ -201,7 +201,7 @@ transition: background-color 0.3s;
 }
 
 .login-form button:hover {
-background-color: #0056b3;
+  background-color: #b1900c;
 }
 
 /* converting link as a button  */
@@ -210,7 +210,7 @@ display: inline-block;
 padding: 0.5rem 1rem;
 border: none;
 border-radius: 5px;
-background-color: #007bff;
+background-color: #977b0a;
 color: #fff;
 text-decoration: none;
 font-size: 1rem;
@@ -219,7 +219,7 @@ text-align: center;
 }
 
 .button-link:hover {
-background-color: #0056b3;
+  background-color: #c09c0d;
 }
 
 /* admin meal styling */
@@ -239,6 +239,7 @@ padding: 0;
 
 .meal-item button {
 padding: 8px;
+margin: 5px;
 font-size: 15px;
 color: white;
 background-color: #977b0a;

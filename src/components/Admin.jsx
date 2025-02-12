@@ -45,7 +45,7 @@ const Admin = () => {
     };
 
     try {
-      const response = await fetch(`${backendUrl}/add-meal`, {
+      const response = await fetch(`${backendUrl}/meals/add-meal`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
