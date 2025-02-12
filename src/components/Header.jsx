@@ -93,7 +93,7 @@ const Header = () => {
       <header id="main-header">
         <div id="title">
           <img src={logoimg} alt="A restaurant" />
-          <h1>MernFood</h1>
+          <h1>TastyFood</h1>
         </div>
         <div className="btndiv">
           <button className="btn1" onClick={handleShowCart}>CART ({totalCartItems}) </button>
