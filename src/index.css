@@ -469,6 +469,7 @@ color: #aa8a0a;
 font-size: 28px;
 font-weight: bold;
 cursor: pointer;
+border: none;
 }
 
 .close:hover,
