@@ -438,7 +438,7 @@ font-size: 20px;
 font-weight: bold;
 text-align: right;
 margin: 20px 0;
-color: #977b0a67;
+color: #000000e5;
 }
 
 .cart-modal .modal-actions {
@@ -465,7 +465,7 @@ cursor: pointer;
 position: absolute;
 top: 10px;
 right: 15px;
-color: #aaa;
+color: #aa8a0a;
 font-size: 28px;
 font-weight: bold;
 cursor: pointer;
@@ -473,7 +473,7 @@ cursor: pointer;
 
 .close:hover,
 .close:focus {
-color: #000;
+  color: #c9a209;
 text-decoration: none;
 cursor: pointer;
 }
