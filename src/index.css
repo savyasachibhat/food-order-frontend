@@ -241,7 +241,8 @@ padding: 0;
 padding: 8px;
 font-size: 15px;
 color: white;
-background-color: #4caf50;
+background-color: #977b0a;
+color: #fff;
 border: none;
 border-radius: 5px;
 cursor: pointer;
@@ -249,7 +250,7 @@ transition: background-color 0.3s ease;
 }
 
 .meal-item button:hover {
-background-color: #45a049;
+background-color: #e0b60e;
 }
 
 .meal-item {

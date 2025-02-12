@@ -23,9 +23,7 @@ const CartModal = ({ open, onClose }) => {
     0
   );
 
-  function handleCloseCart() {
-    userProgressCtx.hideCart();
-  }
+ 
 
  
 
