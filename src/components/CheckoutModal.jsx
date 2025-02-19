@@ -112,7 +112,7 @@ const CheckoutModal = ({ open, onClose }) => {
             {Error && <span className="error-message">{Error}</span>}
 
             <div className="modal-actions">
-              {!isLoading && <button onClick={onClose}>Cancel</button>}
+              {!isLoading && <button type ='button' onClick={onClose}>Cancel</button>}
               <button type="submit">
                 {isLoading ? "Confirming..." : "Confirm"}
               </button>
