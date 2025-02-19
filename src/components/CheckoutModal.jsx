@@ -3,7 +3,7 @@ import CartContext from "../store/CartContext";
 import UserProgressContext from "../store/UserProgressContext";
 import { useNavigate } from "react-router-dom";
 
-const CheckoutModal = ({ open, onClose }) => {
+const CheckoutModal = ({ open , onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [Error, setError] = useState(null);
   const dialog = useRef();
@@ -112,7 +112,7 @@ const CheckoutModal = ({ open, onClose }) => {
             {Error && <span className="error-message">{Error}</span>}
 
             <div className="modal-actions">
-              {!isLoading && <button onClick={onClose}>Cancel</button>}
+              {!isLoading && <button type='button' onClick={onClose}>Cancel</button>}
               <button type="submit">
                 {isLoading ? "Confirming..." : "Confirm"}
               </button>
