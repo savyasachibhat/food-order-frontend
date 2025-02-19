@@ -5,6 +5,7 @@ import CartContext from "../store/CartContext";
 import UserProgressContext from "../store/UserProgressContext";
 import CartModal from "./CartModal";
 import CheckoutModal from "./CheckoutModal";
+import UserLoginModal from "./UserLoginModal";
 
 
 const Header = () => {
@@ -12,6 +13,7 @@ const Header = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
  
   
   const cartctx = useContext(CartContext);
@@ -45,8 +47,14 @@ const Header = () => {
     userProgressCtx.hideCheckout();
   }
 
- 
+  function handleShowUserLogin(){
+    userProgressCtx.showUserLogin();
+  }
 
+ 
+  function handleCloseLogin (){
+    userProgressCtx.hideUserLogin();
+  }
     
 
   const handleAdminAccess = async (e) => {
@@ -88,6 +96,49 @@ const Header = () => {
     }
   };
 
+
+
+
+
+const handleUserLogin = async (e) => {
+  e.preventDefault();
+
+  // Frontend validation
+  if (!email || !password) {
+    setErrorMessage("Email and password are required.");
+    return;
+  }
+
+  if (!/\S+@\S+\.\S+/.test(email)) {
+    setErrorMessage("Invalid email format.");
+    return;
+  }
+
+  try {
+    const response = await fetch(`${backendUrl}/user`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("User login successful", data);
+      setErrorMessage("");
+      setIsUserLoggedIn(true);
+      handleCloseLogin();
+    } else {
+      const errorData = await response.json();
+      setErrorMessage(errorData.message);
+    }
+  } catch (error) {
+    console.error("Error during user login:", error);
+    setErrorMessage("Login failed. Please try again.");
+  }
+};
+
   return (
     <>
       <header id="main-header">
@@ -100,6 +151,15 @@ const Header = () => {
           <button className="btn2" onClick={handleOpenAdminModal}>
             Admin Login
           </button>
+          {isUserLoggedIn ? (
+            <button className="btn2" onClick={() => navigate("/mymeals")}>
+              My Meals
+            </button>
+          ) : (
+            <button className="btn2" onClick={handleShowUserLogin}>
+              User Login
+            </button>
+          )}
          
         </div>
       </header>
@@ -136,6 +196,7 @@ const Header = () => {
 
       <CartModal open={userProgressCtx.progress === 'cart'} onClose={  handleCloseCart  } />
       <CheckoutModal open={userProgressCtx.progress === 'checkout'} onClose={handleCloseCheckout} />
+      <UserLoginModal open ={userProgressCtx.progress=== 'login'} onClose={handleCloseLogin}/>
       
       
     </>
