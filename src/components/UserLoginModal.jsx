@@ -39,7 +39,8 @@ const UserLoginModal = ({ open, onClose }) => {
         onClose(); // Close the login modal
       } else {
         const errorData = await response.json();
-        setErrorMessage(errorData.message);
+        // setErrorMessage(errorData.message);
+        onClose();
       }
     } catch (error) {
       setErrorMessage("Login failed. Try again.");
