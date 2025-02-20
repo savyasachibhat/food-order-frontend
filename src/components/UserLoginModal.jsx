@@ -38,9 +38,16 @@ const UserLoginModal = ({ open, onClose }) => {
         setErrorMessage("");
         onClose(); // Close the login modal
       } else {
+        // If no meals found, save user details and set empty meals array
         const errorData = await response.json();
-        // setErrorMessage(errorData.message);
-        onClose();
+        if (errorData.message === "No meals found for this user.") {
+          userProgressCtx.setUser({ name, email });
+          userProgressCtx.setUserMeals([]);
+          setErrorMessage("");
+          onClose();
+        } else {
+          setErrorMessage(errorData.message);
+        }
       }
     } catch (error) {
       setErrorMessage("Login failed. Try again.");
