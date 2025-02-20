@@ -1,81 +1,68 @@
-import { useRef, useEffect, useContext } from "react";
-import CartContext from "../store/CartContext";
+import { useRef, useEffect, useContext, useState } from "react";
+import UserProgressContext from "../store/UserProgressContext";
 
 const UserLoginModal = ({ open, onClose }) => {
-  const cartctx = useContext(CartContext);
+  const [errorMessage, setErrorMessage] = useState("");
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const userProgressCtx = useContext(UserProgressContext);
   const dialogRef = useRef();
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (open) {
-      dialog.showModal();
-    } else {
-      dialog.close();
-    }
+    if (open) dialogRef.current.showModal();
+    else dialogRef.current.close();
   }, [open]);
 
- const handleLoginSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const fd = new FormData(e.target);
-    const userData = Object.fromEntries(fd.entries());
+    const name = e.target.name.value;
+    const email = e.target.email.value;
 
-    // Fetch cart data based on user email
+    if (!name || !email) {
+      setErrorMessage("Both name and email are required.");
+      return;
+    }
+
     try {
-      const response = await fetch(`http://localhost:5000/cart/${userData.email}`);
-      const cartData = await response.json();
+      const response = await fetch(`${backendUrl}/user/meals`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json", name, email },
+      });
 
       if (response.ok) {
-        const updatedItems = cartData.items.map(item => ({
-          ...item,
-          quantity: item.quantity,
-          price: item.price
-        }));
-        cartctx.setItems(updatedItems);
+        const data = await response.json();
 
-        // Recalculate the total amount
-        const totalAmount = updatedItems.reduce((total, item) => total + item.quantity * item.price, 0);
-        cartctx.setTotalAmount(totalAmount);
+        // Store user data and meals in context
+        userProgressCtx.setUser({ name, email });
+        userProgressCtx.setUserMeals(data.meals);
 
-        console.log('User data:', userData);
-        onClose(); // Close the modal after login
+        setErrorMessage("");
+        onClose(); // Close the login modal
       } else {
-        console.error('Failed to fetch cart data:', cartData.message);
+        const errorData = await response.json();
+        setErrorMessage(errorData.message);
       }
     } catch (error) {
-      console.error('Error fetching cart data:', error);
+      setErrorMessage("Login failed. Try again.");
     }
   };
 
-  
-   
-
   return (
-    <div
-      className={`login-modal-backdrop ${open ? "open" : ""}`}
-      onClick={onClose}
-    >
-      <dialog
-        ref={dialogRef}
-        className="user-login-modal"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <form id="login-form" onSubmit={handleLoginSubmit}>
+    <div className={`login-modal-backdrop ${open ? "open" : ""}`} onClick={onClose}>
+      <dialog ref={dialogRef} className="user-login-modal" onClick={(e) => e.stopPropagation()}>
+        <form id="login-form" onSubmit={handleLogin}>
           <h2>Login</h2>
-
           <label htmlFor="name">Full Name</label>
           <input type="text" id="name" name="name" required />
-
           <label htmlFor="email">Email</label>
           <input type="email" id="email" name="email" required />
-
           <div className="modal-actions">
-            <button type="button" onClick={onClose}>
-              Cancel
-            </button>
+            <button type="button" onClick={onClose}>Cancel</button>
             <button type="submit">Login</button>
           </div>
         </form>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </dialog>
+      
     </div>
   );
 };

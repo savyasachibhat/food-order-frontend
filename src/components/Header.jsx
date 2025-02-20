@@ -98,46 +98,14 @@ const Header = () => {
 
 
 
-
-
-const handleUserLogin = async (e) => {
-  e.preventDefault();
-
-  // Frontend validation
-  if (!email || !password) {
-    setErrorMessage("Email and password are required.");
-    return;
-  }
-
-  if (!/\S+@\S+\.\S+/.test(email)) {
-    setErrorMessage("Invalid email format.");
-    return;
-  }
-
-  try {
-    const response = await fetch(`${backendUrl}/user`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log("User login successful", data);
-      setErrorMessage("");
-      setIsUserLoggedIn(true);
-      handleCloseLogin();
+  const handleMyMeals = () => {
+    if (userProgressCtx.user) {
+      navigate("/mymeals");
     } else {
-      const errorData = await response.json();
-      setErrorMessage(errorData.message);
+      alert("Please log in first.");
     }
-  } catch (error) {
-    console.error("Error during user login:", error);
-    setErrorMessage("Login failed. Please try again.");
-  }
-};
+  };
+
 
   return (
     <>
@@ -151,15 +119,11 @@ const handleUserLogin = async (e) => {
           <button className="btn2" onClick={handleOpenAdminModal}>
             Admin Login
           </button>
-          {isUserLoggedIn ? (
-            <button className="btn2" onClick={() => navigate("/mymeals")}>
-              My Meals
-            </button>
-          ) : (
-            <button className="btn2" onClick={handleShowUserLogin}>
-              User Login
-            </button>
-          )}
+          {userProgressCtx.user ? (
+          <button className="btn2" onClick={handleMyMeals}>My Meals</button>
+        ) : (
+          <button className="btn2" onClick={userProgressCtx.showUserLogin}>User Login</button>
+        )}
          
         </div>
       </header>
