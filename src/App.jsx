@@ -39,7 +39,7 @@ const App = () => {
     <UserProgressContextProvider>
       <CartContextProvider>
         <Router>  {/* Replace RouterProvider with BrowserRouter */}
-          <Header /> {/* Ensure header is inside Router so navigation works */}
+           {/* Ensure header is inside Router so navigation works */}
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/admin" element={<Admin />} />
