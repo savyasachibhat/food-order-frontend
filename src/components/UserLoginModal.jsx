@@ -8,9 +8,14 @@ const UserLoginModal = ({ open, onClose }) => {
   const dialogRef = useRef();
 
   useEffect(() => {
-    if (open) dialogRef.current.showModal();
-    else dialogRef.current.close();
+    if (open && dialogRef.current) {
+      dialogRef.current.showModal();
+    } else if (dialogRef.current) {
+      dialogRef.current.close();
+    }
   }, [open]);
+
+  if (!open) return null;
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -55,23 +60,22 @@ const UserLoginModal = ({ open, onClose }) => {
   };
 
   return (
-    <div className={`login-modal-backdrop ${open ? "open" : ""}`} onClick={onClose}>
-      <dialog ref={dialogRef} className="user-login-modal" onClick={(e) => e.stopPropagation()}>
-        <form id="login-form" onSubmit={handleLogin}>
-          <h2>Login</h2>
-          <label htmlFor="name">Full Name</label>
-          <input type="text" id="name" name="name" required />
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" name="email" required />
-          <div className="modal-actions">
-            <button type="button" onClick={onClose}>Cancel</button>
-            <button type="submit">Login</button>
-          </div>
-        </form>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-      </dialog>
-      
-    </div>
+    <div className={`modal-backdrop ${open ? "open" : ""}`} onClick={onClose}>
+    <dialog ref={dialogRef} className="modal" onClick={(e) => e.stopPropagation()}>
+      <form id="login-form" className="login-form" onSubmit={handleLogin}>
+        <h2>Login</h2>
+        <label htmlFor="name">Full Name</label>
+        <input type="text" id="name" name="name" required />
+        <label htmlFor="email">Email</label>
+        <input type="email" id="email" name="email" required />
+        <div className="modal-actions">
+          <button type="button" onClick={onClose}>Cancel</button>
+          <button type="submit">Login</button>
+        </div>
+      </form>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+    </dialog>
+  </div>
   );
 };
 
