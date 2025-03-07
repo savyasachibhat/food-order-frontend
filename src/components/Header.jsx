@@ -115,6 +115,7 @@ const Header = () => {
   
       if (response.ok) {
         const data = await response.json();
+        console.log(data.token);
         localStorage.setItem("adminToken", data.token); // Store JWT Token
         console.log("Admin access granted", data);
         setErrorMessage("");
@@ -130,7 +131,7 @@ const Header = () => {
   };
   
 
-  
+
   const handleMyMeals = () => {
     if (userProgressCtx.user) {
       navigate("/mymeals");
