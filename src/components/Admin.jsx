@@ -18,21 +18,53 @@ const Admin = () => {
     setErrorMessage(null); // Clear the error message when closing the modal
   };
 
+  // useEffect(() => {
+  //   const fetchMeals = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await fetch(`${backendUrl}/meals`);
+  //       const data = await response.json();
+  //       setMeals(data);
+  //     } catch (error) {
+  //       console.error("Error fetching meals:", error);
+  //     }
+  //     setLoading(false);
+  //   };
+
+  //   fetchMeals();
+  // }, [backendUrl]);
+
   useEffect(() => {
     const fetchMeals = async () => {
       setLoading(true);
+      const token = localStorage.getItem("adminToken");
+
+      if (!token) {
+        setErrorMessage("Unauthorized access");
+        return;
+      }
+
       try {
-        const response = await fetch(`${backendUrl}/meals`);
+        const response = await fetch(`${backendUrl}/admin/meals`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!response.ok) {
+          throw new Error("Unauthorized");
+        }
+
         const data = await response.json();
-        setMeals(data);
+        setMeals(data.meals);
+        setErrorMessage("");
       } catch (error) {
-        console.error("Error fetching meals:", error);
+        setErrorMessage("Unauthorized");
       }
       setLoading(false);
     };
 
     fetchMeals();
   }, [backendUrl]);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

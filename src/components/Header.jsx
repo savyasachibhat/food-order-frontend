@@ -57,7 +57,7 @@ const Header = () => {
   }
     
 
-  const handleAdminAccess = async (e) => {
+  const handleAdminAccess1 = async (e) => {
     e.preventDefault();
 
     // Frontend validation
@@ -98,6 +98,39 @@ const Header = () => {
 
 
 
+  const handleAdminAccess = async (e) => {
+    e.preventDefault();
+  
+    if (!email || !password) {
+      setErrorMessage("Email and password are required.");
+      return;
+    }
+  
+    try {
+      const response = await fetch(`${backendUrl}/admin/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("adminToken", data.token); // Store JWT Token
+        console.log("Admin access granted", data);
+        setErrorMessage("");
+        navigate("/admin");
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(errorData.message);
+      }
+    } catch (error) {
+      console.error("Error during admin access:", error);
+      setErrorMessage("Access failed. Please try again.");
+    }
+  };
+  
+
+  
   const handleMyMeals = () => {
     if (userProgressCtx.user) {
       navigate("/mymeals");
