@@ -170,7 +170,7 @@ const Header = () => {
               <label htmlFor="email">Email:</label>
               <input
                 type="email"
-                id="email"
+                id="admin-email"
                 name="email"
                 required
                 onChange={(e) => setEmail(e.target.value)}
