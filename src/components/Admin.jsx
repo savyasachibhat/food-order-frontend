@@ -41,7 +41,7 @@ const Admin = () => {
 
       if (!token) {
         setErrorMessage("Unauthorized access");
-        navigate("/meals");
+        navigate("/");
         return;
       }
 
@@ -52,7 +52,7 @@ const Admin = () => {
 
         if (response.status === 401 || response.status === 403) {
           setErrorMessage("Unauthorized");
-          navigate("/meals"); // ✅ Redirect unauthorized users
+          navigate("/"); // ✅ Redirect unauthorized users
           return;
         }
 
@@ -61,7 +61,7 @@ const Admin = () => {
         setErrorMessage("");
       } catch (error) {
         setErrorMessage("Unauthorized");
-        navigate("/meals");
+        navigate("/");
       }
       setLoading(false);
     };
