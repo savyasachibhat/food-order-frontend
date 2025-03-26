@@ -41,6 +41,7 @@ const Admin = () => {
 
       if (!token) {
         setErrorMessage("Unauthorized access");
+        navigate("/");
         return;
       }
 
@@ -49,8 +50,10 @@ const Admin = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        if (!response.ok) {
-          throw new Error("Unauthorized");
+        if (response.status === 401 || response.status === 403) {
+          setErrorMessage("Unauthorized");
+          navigate("/"); // ✅ Redirect unauthorized users
+          return;
         }
 
         const data = await response.json();
@@ -58,6 +61,7 @@ const Admin = () => {
         setErrorMessage("");
       } catch (error) {
         setErrorMessage("Unauthorized");
+        navigate("/");
       }
       setLoading(false);
     };
